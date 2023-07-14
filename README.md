@@ -3,8 +3,11 @@ Bu projede, rastgele kullanıcı adları ve şifreleri sağlayan bir kod paylaş
 
 # KURULUM
 $ pkg install git
+
 $ pkg install python
+
 $ git clone 
+
 $ bash homax.sh
 
 # KULLANIMI
