@@ -47,7 +47,7 @@ if [[ "$username" == "homax" && "$password" == "0000" ]]; then
     get_user_choice() {
         while true; do
             read -p $'\nSeçiminizi yapın (1-4): ' choice
-            if [[ "$choice" =~ ^[1-4]$ ]]; then
+            if [[ "$choice" -ge 1 && "$choice" -le 4 ]]; then
                 echo "$choice"
                 return 
             else
@@ -58,37 +58,41 @@ if [[ "$username" == "homax" && "$password" == "0000" ]]; then
 
     process_choice() {
         choice="$1"
-        #Instagram
-        if [[ "$choice" -eq 1 ]]; then
-            # Rastgele bir indeks seçin
-            random_index=$(( RANDOM % ${#usernames[@]} ))
-            # Rastgele kullanıcı adı ve şifreleri alın
-            random_username=${usernames[$random_index]}
-            random_password=${passwords[$random_index]}
-            echo -e "\033[34m KULLANICI ADI: $random_username"
-            echo -e "\033[34m ŞİFRE: $random_password"
-            #Facebook
-        elif [[ "$choice" -eq 2 ]]; then
-            # Rastgele bir indeks seçin
-            random_index2=$(( RANDOM % ${#usernames2[@]} ))
-            # Rastgele kullanıcı adı ve şifreleri alın
-            random_username2=${usernames2[$random_index2]}
-            random_password2=${passwords2[$random_index2]}
-            echo -e "\033[34m KULLANICI ADI: $random_username2"
-            echo -e "\033[34m ŞİFRE: $random_password2"
-            #Tiktok
-        elif [[ "$choice" -eq 3 ]]; then
-            # Rastgele bir indeks seçin
-            random_index3=$(( RANDOM % ${#usernames3[@]} ))
-            # Rastgele kullanıcı adı ve şifreleri alın
-            random_username3=${usernames3[$random_index3]}
-            random_password3=${passwords3[$random_index3]}
-            echo -e "\033[34m KULLANICI ADI: $random_username3"
-            echo -e "\033[34m ŞİFRE: $random_password3"
-        elif [[ "$choice" -eq 4 ]]; then
-            echo "Çıkış yapılıyor..."
-            exit
-        fi
+        case "$choice" in
+            1)
+                # Rastgele bir indeks seçin
+                random_index=$(( RANDOM % ${#usernames[@]} ))
+                # Rastgele kullanıcı adı ve şifreleri alın
+                random_username=${usernames[$random_index]}
+                random_password=${passwords[$random_index]}
+                echo -e "\033[34m KULLANICI ADI: $random_username"
+                echo -e "\033[34m ŞİFRE: $random_password"
+                ;;
+            2)
+                # Rastgele bir indeks seçin
+                random_index2=$(( RANDOM % ${#usernames2[@]} ))
+                # Rastgele kullanıcı adı ve şifreleri alın
+                random_username2=${usernames2[$random_index2]}
+                random_password2=${passwords2[$random_index2]}
+                echo -e "\033[34m KULLANICI ADI: $random_username2"
+                echo -e "\033[34m ŞİFRE: $random_password2"
+                ;;
+            3)
+                # Rastgele bir indeks seçin
+                random_index3=$(( RANDOM % ${#usernames3[@]} ))
+                # Rastgele kullanıcı adı ve şifreleri alın
+                random_username3=${usernames3[$random_index3]}
+                random_password3=${passwords3[$random_index3]}
+                echo -e "\033[34m KULLANICI ADI: $random_username3"
+                echo -e "\033[34m ŞİFRE: $random_password3"
+                ;;
+            4)
+                echo "Çıkış yapılıyor..."
+                exit
+                ;;
+        esac
+        read -p "Devam etmek için Enter tuşuna basın..."
+        clear_screen
     }
 
     clear_screen
@@ -97,8 +101,6 @@ if [[ "$username" == "homax" && "$password" == "0000" ]]; then
         print_menu
         user_choice=$(get_user_choice)
         process_choice "$user_choice"
-        read -p "Devam etmek için Enter tuşuna basın..."
-        clear_screen
     done
 
 else
